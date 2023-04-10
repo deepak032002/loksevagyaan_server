@@ -1,4 +1,4 @@
-import User from "../db/models/user.model"
+import User from "../db/modelss/user.model"
 
 export const createUser = (data:object) => {
     

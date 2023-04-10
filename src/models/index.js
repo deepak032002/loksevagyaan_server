@@ -8,8 +8,8 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
-const Blog = require("./blog.model");
 const User = require("./user.model");
+const Blog = require("./blog.model");
 const Comment = require("./comment.model");
 const Tags = require("./tags.model");
 
@@ -48,8 +48,8 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-User.hashMany(Blog, { foreignKey: "authorId" });
-Blog.belongsTo(User, { foreignKey: "authorId" });
+// User.hashMany(Blog, { foreignKey: "userId" });
+// Blog.belongsTo(User, { foreignKey: "userId" });
 
 Blog.hashMany(Comment, {foreignKey: "blogId" });
 Comment.belongsTo(Blog, {foreignKey: "blogId" });

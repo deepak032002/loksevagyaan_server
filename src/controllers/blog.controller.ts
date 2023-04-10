@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import Blog from "../db/models/blog.model";
-import User from "../db/models/user.model";
+import Blog from "../models/blog.model";
+import User from "../models/user.model";
 
 const getBlog = async (req: Request, res: Response) => {
   try {
@@ -82,17 +82,18 @@ const getBlogById = async (req: Request, res: Response) => {
   try {
     const blogData = await Blog.findOne({
       where: { slug: req.params.slug },
-      attributes: ["id", "title", "content", "image", "slug"],
+      attributes: ["id", "title", "content",  "slug"],
       include: [
         {
           model: User,
-          attributes: ["id", "name", "email", "image"],
+          attributes: ["id", "name", "email"],
         },
       ],
     });
 
     return res.status(200).send({ message: "Success", blogData });
   } catch (error) {
+    console.log(error)
     return res
       .status(500)
       .send({ message: "Something went wrong!", error, success: false });

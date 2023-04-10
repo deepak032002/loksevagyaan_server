@@ -1,17 +1,17 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "..";
+import sequelize from "../db/index";
 
-class Comment extends Model {}
+class Tag extends Model {}
 
-const commentSchema = {
+const tagSchema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
 
-  content: {
-    type: DataTypes.TEXT,
+  name: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
 
@@ -26,5 +26,6 @@ const commentSchema = {
   },
 };
 
-Comment.init(commentSchema, { sequelize, timestamps: true });
-export default Comment;
+Tag.init(tagSchema, { sequelize, timestamps: true });
+
+export default Tag;

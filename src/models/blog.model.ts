@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "..";
+import sequelize from "../db/index";
+import User from "./user.model";
 
 class Blog extends Model {
   static createSlug(title: string) {
@@ -33,11 +34,6 @@ const blogSchema = {
     allowNull: false,
   },
 
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-
   slug: {
     type: DataTypes.STRING,
     unique: true,
@@ -45,12 +41,21 @@ const blogSchema = {
 
   createdAt: {
     type: DataTypes.DATE,
-    default: Date.now,
+    defaultValue: DataTypes.NOW,
   },
 
   updatedAt: {
     type: DataTypes.DATE,
-    default: Date.now,
+    defaultValue: DataTypes.NOW,
+  },
+
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: User,
+      key: "id",
+    },
   },
 };
 
@@ -67,5 +72,8 @@ Blog.init(blogSchema, {
   },
   timestamps: true,
 });
+
+
+Blog.belongsTo(User, { foreignKey: "userId" });
 
 export default Blog;
