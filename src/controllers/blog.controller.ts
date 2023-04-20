@@ -18,12 +18,12 @@ const getBlog = async (req: Request, res: Response) => {
 
 const postBlog = async (req: Request, res: Response) => {
   try {
-    const { title, content, image } = req.body;
+    const { title, content } = req.body;
 
     const blog = Blog.build({
       title,
       content,
-      image,
+      image: req.file,
       userId: req.user,
     });
 
@@ -82,7 +82,7 @@ const getBlogById = async (req: Request, res: Response) => {
   try {
     const blogData = await Blog.findOne({
       where: { slug: req.params.slug },
-      attributes: ["id", "title", "content",  "slug"],
+      attributes: ["id", "title", "content", "slug"],
       include: [
         {
           model: User,
@@ -93,7 +93,7 @@ const getBlogById = async (req: Request, res: Response) => {
 
     return res.status(200).send({ message: "Success", blogData });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res
       .status(500)
       .send({ message: "Something went wrong!", error, success: false });

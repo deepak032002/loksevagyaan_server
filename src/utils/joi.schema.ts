@@ -14,5 +14,4 @@ export const userValidateSchema = joi.object().keys({
 export const blogValidateSchema = joi.object().keys({
   title: joi.string().required().min(3),
   content: joi.string().required().min(250),
-  image: joi.string().required(),
 });

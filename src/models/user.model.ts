@@ -1,7 +1,14 @@
-import { DataTypes, Model, Sequelize } from 'sequelize';
-import sequelize from '../db/index';
+import { DataTypes, Model, Sequelize } from "sequelize";
+import sequelize from "../db/index";
+import bcrypt from 'bcrypt'
 
-class User extends Model {}
+class User extends Model {
+  static async hashPassword(value: string): Promise<string> {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(value, salt);
+    return hash;
+  }
+}
 
 const userSchema = {
   id: {
@@ -36,7 +43,7 @@ const userSchema = {
 
   role: {
     type: DataTypes.STRING,
-    defaultValue: 'user',
+    defaultValue: "user",
   },
 
   createdAt: {

@@ -26,7 +26,6 @@ sequelize.authenticate().then(() => {
   app.use(helmet());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(multer({}).single("image"));
   app.use("/api/v1/user", userRouter);
   app.use("/api/v1/admin", adminRouter);
   app.use("/api/v1/blog", blogRouter);

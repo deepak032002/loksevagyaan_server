@@ -1,4 +1,5 @@
 import { Router } from "express";
+import multer from "multer";
 import {
   getBlog,
   postBlog,
@@ -6,15 +7,15 @@ import {
   deleteBlog,
   getBlogById,
 } from "../controllers/blog.controller";
-import { validate, verifyToken } from "../middlewares";
+import { uploadImage, validate, verifyToken } from "../middlewares";
 import { blogValidateSchema } from "../utils/joi.schema";
 
 const router = Router();
-
+router.use(multer().single("image"));
 router
   .route("/")
   .get(getBlog)
-  .post(verifyToken, validate(blogValidateSchema), postBlog);
+  .post(verifyToken, validate(blogValidateSchema), uploadImage, postBlog);
 
 router
   .route("/:slug")
