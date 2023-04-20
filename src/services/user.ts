@@ -1,5 +1,5 @@
-import User from "../db/modelss/user.model"
+import User from "../models/user.model";
 
-export const createUser = (data:object) => {
-    
-}
+export const createUser = (data: object) => {
+    User.findAll()
+};
