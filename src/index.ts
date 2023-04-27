@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import multer from "multer";
+import cors from "cors";
 import helmet from "helmet";
 if (process.env.NODE_ENV === "production") {
   dotenv.config({ path: ".env.production" });
@@ -22,6 +22,12 @@ const port = process.env.PORT || 5000;
 sequelize.authenticate().then(() => {
   const app: Express = express();
   app.disable("x-powered-by");
+  app.use(
+    cors({
+      origin: "*",
+      credentials: true,
+    })
+  );
   app.use(morgan("dev"));
   app.use(helmet());
   app.use(express.json());
@@ -31,7 +37,7 @@ sequelize.authenticate().then(() => {
   app.use("/api/v1/blog", blogRouter);
 
   app.get("/", (req: Request, res: Response) => {
-    res.send("Hello 🙂");
+    res.send("Hello. 🙂");
   });
 
   app.listen(port, () => {
