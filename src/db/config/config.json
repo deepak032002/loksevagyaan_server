@@ -18,7 +18,7 @@
   "production": {
     "username": "lockgyaan_user",
     "password": "kLhCcPiKKVxhQvoxHi6Zh0UuLTPp6PGN",
-    "database": "loksevagyaan",
+    "database": "lockgyaan",
     "dialect": "postgres",
     "host": "dpg-ch0ijhbh4hsukp30ccag-a",
     "port":5432
