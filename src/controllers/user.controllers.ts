@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import User from "../models/user.model";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Joi from "joi";
+import { userValidateSchema } from "../utils/joi.schema";
 const JWT_SECRET = process.env.SECREAT_PHRASE || "";
 
 export const userGet = async (req: Request, res: Response) => {
@@ -20,8 +22,9 @@ export const userGet = async (req: Request, res: Response) => {
 
 export const signup = async (req: Request, res: Response) => {
   try {
-    const { name, email, mobile, password } = req.body;
+    await userValidateSchema.validateAsync(req.body);
 
+    const { name, email, mobile, password } = req.body;
     const isEmailExist = await User.findOne({ where: { email: email } });
 
     if (isEmailExist)
